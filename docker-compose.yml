@@ -1,0 +1,34 @@
+version: '3.1'
+
+services:
+  chrome-headless:
+    image: chromedp/headless-shell:79.0.3941.4
+    ports:
+      - 9222:9222
+
+  pg:
+    image: postgres:10
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_USER: root
+    volumes:
+      - "./storage/pg/:/var/lib/postgresql/data/"
+
+  minio:
+    image: minio/minio
+    ports:
+      - 9001:9000
+    environment:
+      MINIO_ACCESS_KEY: "MINIO_ACCESS_KEY"
+      MINIO_SECRET_KEY: "MINIO_SECRET_KEY"
+    command: ["server", "/data"]
+    volumes:
+      - "./storage/minio/:/data/"
+
+  consul:
+    image: consul
+    ports:
+      - "8500:8500"
