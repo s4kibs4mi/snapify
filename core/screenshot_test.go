@@ -6,7 +6,7 @@ import (
 
 func TestTakeScreenShot(t *testing.T) {
 	out := "/Users/s4kibs4mi/go/src/github.com/s4kibs4mi/snapify/out"
-	if err := TakeScreenShot("https://www.facebook.com", out); err != nil {
+	if err := TakeScreenShotAndSave("https://www.facebook.com", out); err != nil {
 		t.Error(err)
 		return
 	}

@@ -21,6 +21,7 @@ func LoadConfig(configPath string) error {
 	LoadApp()
 	LoadDB()
 	LoadMinio()
+	LoadRabbitMQ()
 
 	return nil
 }

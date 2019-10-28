@@ -13,19 +13,18 @@ database:
   max_active_connections: 10
   max_connection_lifetime: 2
 
-machinery:
+rabbitmq:
   broker: "amqp://test:test@localhost:5672/"
   default_queue: "machinery_tasks"
   result_backend: "amqp://test:test@localhost:5672/"
   amqp:
     exchange: "machinery_exchange"
     exchange_type: "direct"
-    binding_key: "machinery_task"
+    binding_key: "machinery_tasks"
     prefetch_count: 5
-  workers:
-    default:
-      name: "worker-1"
-      count: 5
+  worker:
+    name: "worker-1"
+    count: 5
 
 minio:
   base_url: "localhost:9001"

@@ -21,7 +21,7 @@ func init() {
 }
 
 func onInstance(cmd *cobra.Command, args []string) {
-	if err := core.TakeScreenShot(targetUrl, targetDirectory); err != nil {
+	if err := core.TakeScreenShotAndSave(targetUrl, targetDirectory); err != nil {
 		log.Log().Errorln("Failed to take screen shot : ", err)
 		return
 	}

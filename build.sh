@@ -21,6 +21,12 @@ if [ "$cmd" = "serve" ]; then
   exit
 fi
 
+if [ "$cmd" = "instant" ]; then
+  echo "Executing instant command"
+  ./${binary} instant --url "$2" --out "$3"
+  exit
+fi
+
 if [ "$cmd" = "up" ]; then
   echo "Executing migration up command"
   ./${binary} migration up --config_path ./

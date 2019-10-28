@@ -7,6 +7,7 @@ import (
 	"github.com/s4kibs4mi/snapify/app"
 	"github.com/s4kibs4mi/snapify/config"
 	"github.com/s4kibs4mi/snapify/log"
+	"github.com/s4kibs4mi/snapify/worker"
 	"github.com/spf13/cobra"
 	"net/http"
 	"os"
@@ -29,6 +30,15 @@ var serveCmd = &cobra.Command{
 		}
 		if err := app.ConnectMinio(); err != nil {
 			log.Log().Errorln("Failed to connect to minio : ", err)
+			os.Exit(-1)
+		}
+		if err := worker.NewMachineryServer(); err != nil {
+			log.Log().Errorln("Failed to connect to rabbitmq : ", err)
+			os.Exit(-1)
+		}
+		go worker.NewWorker()
+		if err := worker.RegisterTasks(); err != nil {
+			log.Log().Errorln("Failed to register tasks : ", err)
 			os.Exit(-1)
 		}
 	},

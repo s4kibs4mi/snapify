@@ -29,7 +29,7 @@ services:
       - "./storage/minio/:/data/"
 
   rabbitmq:
-    image: rabbitmq:alpine
+    image: rabbitmq:3-management-alpine
     environment:
       RABBITMQ_DEFAULT_USER: "test"
       RABBITMQ_DEFAULT_PASS: "test"
