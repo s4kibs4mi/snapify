@@ -1,0 +1,37 @@
+app:
+  host: "0.0.0.0"
+  port: 9009
+  log_level: "debug"
+
+database:
+  host: "127.0.0.1"
+  port: 5432
+  username: "root"
+  password: "test"
+  name: "test"
+  max_idle_connections: 2
+  max_active_connections: 10
+  max_connection_lifetime: 2
+
+machinery:
+  broker: "amqp://test:test@localhost:5672/"
+  default_queue: "machinery_tasks"
+  result_backend: "amqp://test:test@localhost:5672/"
+  amqp:
+    exchange: "machinery_exchange"
+    exchange_type: "direct"
+    binding_key: "machinery_task"
+    prefetch_count: 5
+  workers:
+    default:
+      name: "worker-1"
+      count: 5
+
+minio:
+  base_url: "localhost:9001"
+  serve_url: "http://localhost:9001"
+  key: "MINIO_ACCESS_KEY"
+  secret: "MINIO_SECRET_KEY"
+  bucket: "snapify"
+  location: "us"
+  sign_duration: 5  # Minute

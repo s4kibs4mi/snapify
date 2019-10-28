@@ -28,7 +28,11 @@ services:
     volumes:
       - "./storage/minio/:/data/"
 
-  consul:
-    image: consul
+  rabbitmq:
+    image: rabbitmq:alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: "test"
+      RABBITMQ_DEFAULT_PASS: "test"
     ports:
-      - "8500:8500"
+      - 5672:5672
+      - 15672:15672

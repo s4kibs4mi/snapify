@@ -6,9 +6,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var instanceCmd = &cobra.Command{
-	Use:   "instance",
-	Short: "instance takes screen shot of given url via cli",
+var instantCmd = &cobra.Command{
+	Use:   "instant",
+	Short: "instant takes screen shot of given url via cli",
 	Run:   onInstance,
 }
 
@@ -16,8 +16,8 @@ var targetUrl string
 var targetDirectory string
 
 func init() {
-	instanceCmd.Flags().StringVar(&targetUrl, "url", "", "target web page url (ex: https://www.example.com)")
-	instanceCmd.Flags().StringVar(&targetDirectory, "out", "", "directory to save screenshots (ex: /root/ss)")
+	instantCmd.Flags().StringVar(&targetUrl, "url", "", "target web page url (ex: https://www.example.com)")
+	instantCmd.Flags().StringVar(&targetDirectory, "out", "", "directory to save screenshots (ex: /root/ss)")
 }
 
 func onInstance(cmd *cobra.Command, args []string) {

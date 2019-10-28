@@ -7,7 +7,9 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(instanceCmd)
+	rootCmd.AddCommand(instantCmd)
+	rootCmd.AddCommand(serveCmd)
+	rootCmd.AddCommand(migrationCmd)
 }
 
 func Execute() error {
