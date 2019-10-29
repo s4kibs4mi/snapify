@@ -7,7 +7,6 @@ import (
 
 type MinioCfg struct {
 	BaseURL      string
-	ServeURL     string
 	Key          string
 	Secret       string
 	Location     string
@@ -23,7 +22,6 @@ func LoadMinio() {
 
 	minio = MinioCfg{
 		BaseURL:      viper.GetString("minio.base_url"),
-		ServeURL:     viper.GetString("minio.serve_url"),
 		Key:          viper.GetString("minio.key"),
 		Secret:       viper.GetString("minio.secret"),
 		Bucket:       viper.GetString("minio.bucket"),

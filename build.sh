@@ -39,4 +39,10 @@ if [ "$cmd" = "down" ]; then
   exit
 fi
 
+if [ "$cmd" = "docker" ]; then
+  echo "Executing docker build command"
+  docker build -t s4kibs4mi/snapify:"$2" .
+  exit
+fi
+
 echo "No command specified"

@@ -1,12 +1,20 @@
 version: '3.1'
 
 services:
-  chrome-headless:
-    image: chromedp/headless-shell:79.0.3941.4
+  snapify:
+    image: s4kibs4mi/snapify:0.0.2
+    command: ["serve", "--config_path", "/root/"]
+    restart: on-failure
     ports:
-      - 9222:9222
+      - 9010:9010
+    volumes:
+      - "./config.yml:/root/config.yml"
+    depends_on:
+      - database
+      - rabbitmq
+      - minio
 
-  pg:
+  database:
     image: postgres:10
     ports:
       - 5432:5432
@@ -20,7 +28,7 @@ services:
   minio:
     image: minio/minio
     ports:
-      - 9001:9000
+      - 9000:9000
     environment:
       MINIO_ACCESS_KEY: "MINIO_ACCESS_KEY"
       MINIO_SECRET_KEY: "MINIO_SECRET_KEY"
