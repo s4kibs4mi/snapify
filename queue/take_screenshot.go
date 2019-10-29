@@ -13,6 +13,7 @@ func SendTakeScreenShotTask(ID string) error {
 			{
 				Type:  "string",
 				Value: ID,
+				Name:  "ID",
 			},
 		},
 	}

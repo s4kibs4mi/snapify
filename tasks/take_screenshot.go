@@ -3,7 +3,6 @@ package tasks
 import (
 	"bytes"
 	"github.com/RichardKnop/machinery/v1/tasks"
-	"github.com/jinzhu/gorm"
 	"github.com/s4kibs4mi/snapify/app"
 	"github.com/s4kibs4mi/snapify/core"
 	"github.com/s4kibs4mi/snapify/log"
@@ -21,10 +20,6 @@ func TakeScreenShot(ID string) error {
 	m, err := repo.Get(app.DB(), ID)
 	if err != nil {
 		log.Log().Errorln(err)
-
-		if gorm.IsRecordNotFoundError(err) {
-			return nil
-		}
 		return tasks.NewErrRetryTaskLater(err.Error(), time.Second*10)
 	}
 
