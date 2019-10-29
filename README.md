@@ -1,12 +1,53 @@
 # Snapify
-Screenshot as a service of web pages.
+Screen shot as a service of web pages.
+
+#### Commands
+* `instant` - takes an url as input and provides screen shot as output<br/>
+    params:<br/>
+        --url - url of the website.<br/>
+        --out - directory where screen shot will be saved. 
+* `serve` - runs a RESTful webservice<br/>
+    params:<br/>
+        --config_path - configuration file directory (see config.example.yml) for configuration example<br/>
+        --config_name - name of the configuration file
+* `migration up` - populates database schema (creates tables, columns, indexes etc)<br/>
+    params:<br/>
+        --config_path - configuration file directory (see config.example.yml) for configuration example<br/>
+        --config_name - name of the configuration file        
+* `migration down` - drops database schema (creates tables, columns, indexes etc)<br/>
+    params:<br/>
+        --config_path - configuration file directory (see config.example.yml) for configuration example<br/>
+        --config_name - name of the configuration file        
+
 
 #### Architecture
 - Screen Shot Creation Flow
 ![](./extras/creation_flow.png)
 
+1. User sends screen shot creation request to web server.
+2. Server receives the request and validates the data.
+3. Server creates database entry and send tasks to rabbitmq as screen shot creation is a async task.
+4. Server will get the screen shot creation task from rabbitmq.
+5. Server will use chromedp to browse the url and taking screen shot.
+6. If server succeed to take the screen shot it will update related data in database as done and save the image in minio to serve later.
+7. If server fails to take the screenshot it will update related data in database as failed.
+8. If user queries for data, server will pull data from database and serve the user.
+9. If user ask to preview a screen shot, server will pull data from database and if the data marked as done, then will get image from minio and finally will serve the user screen shot image.
+
+#### Database schema
+```text
+id string primary_key not_null
+website string index not_null
+stored_path string
+created_at datetime index
+updated_at datetime
+status string index
+```
+
 #### Endpoints
-1. `POST /v1/screenshots`
+* Create screen shot with json payload
+
+`POST /v1/screenshots`
 ```json
 {
     "urls": [
@@ -47,7 +88,9 @@ Result `202`
 }
 ```
 
-2. `GET /v1/screenshots?page={page}&limit={limit}`
+* List screen shots
+
+`GET /v1/screenshots?page={page}&limit={limit}`
 
 Result `200`
 ```json
@@ -135,11 +178,60 @@ Result `200`
 }
 ```
 
-3. `/v1/screenshots/{screenshot_id}`
+* View single screen shot
+
+`GET /v1/screenshots/{screenshot_id}`
 
 Result `200`
 ```text
 The screen shot will be shown
+```
+
+* Create screen shots with file
+
+`POST /v1/screenshots/files`
+
+```text
+Note : Add file payload in file key and send as form-data request.
+URLs in file must be ; separated.
+Check sites.example.txt for example.
+```
+
+Result `200`
+```json
+{
+    "title": "Screenshot creation is in progress",
+    "data": [
+        {
+            "id": "b92850c4-8791-406b-8b24-4e117b915b0c",
+            "status": "queued",
+            "website": "www.sakib.ninja",
+            "created_at": "2019-10-29T20:08:25.503623+06:00",
+            "updated_at": "2019-10-29T20:08:25.503623+06:00"
+        },
+        {
+            "id": "a2480d38-5545-4e34-a595-92deaeadc751",
+            "status": "queued",
+            "website": "www.google.com",
+            "created_at": "2019-10-29T20:08:25.511954+06:00",
+            "updated_at": "2019-10-29T20:08:25.511954+06:00"
+        },
+        {
+            "id": "37c86912-b20d-4363-9d24-793e52077f0a",
+            "status": "queued",
+            "website": "www.facebook.com",
+            "created_at": "2019-10-29T20:08:25.513669+06:00",
+            "updated_at": "2019-10-29T20:08:25.513669+06:00"
+        },
+        {
+            "id": "d2e9f5b5-96d3-4b5a-b2b9-2ce3aaa9001a",
+            "status": "queued",
+            "website": "www.espn.org",
+            "created_at": "2019-10-29T20:08:25.516736+06:00",
+            "updated_at": "2019-10-29T20:08:25.516736+06:00"
+        }
+    ]
+}
 ```
 
 #### Dependencies
@@ -164,7 +256,28 @@ The screen shot will be shown
 ./build.sh run
 ```
 
+#### Create database tables,
+```bash
+./build.sh up
+```
+
 #### Run complete system
 ```bash
 docker-compose.up -d
 ```
+```text
+Web service will be running on port 9010.
+To change check config.yml file.
+Now enter into snapify docker container,
+
+docker ps
+docker exec -it {snapify_container_id} sh
+
+Then,
+
+snapify migration up --config_path /root/ --config_name config
+
+You are ready to go.
+```
+
+#### [Postman Collection](https://www.getpostman.com/collections/30baacd0726c964733d4)

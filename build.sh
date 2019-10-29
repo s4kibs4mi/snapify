@@ -29,13 +29,13 @@ fi
 
 if [ "$cmd" = "up" ]; then
   echo "Executing migration up command"
-  ./${binary} migration up --config_path ./
+  ./${binary} migration up --config_path ./ --config_name config.example
   exit
 fi
 
 if [ "$cmd" = "down" ]; then
   echo "Executing migration down command"
-  ./${binary} migration down --config_path ./
+  ./${binary} migration down --config_path ./ --config_name config.example
   exit
 fi
 
