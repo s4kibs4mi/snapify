@@ -30,8 +30,14 @@ func TakeScreenShot(ID string) error {
 
 	result, err := core.TakeScreenShot(m.Website)
 	if err != nil {
-		log.Log().Errorln(err)
-		return tasks.NewErrRetryTaskLater(err.Error(), time.Second*10)
+		m.Status = models.Failed
+		m.UpdatedAt = time.Now()
+
+		if err := repo.Update(app.DB(), m); err != nil {
+			log.Log().Errorln(err)
+			return tasks.NewErrRetryTaskLater(err.Error(), time.Second*10)
+		}
+		return nil
 	}
 
 	path := utils.NewUUID() + "-" + utils.FormatUrlWithoutProtocol(m.Website) + ".png"

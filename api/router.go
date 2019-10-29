@@ -13,6 +13,10 @@ func Router() http.Handler {
 	router.Use(middleware.Logger())
 	router.Use(middleware.Recover())
 
+	router.GET("", func(ctx echo.Context) error {
+		return ctx.HTML(http.StatusOK, "<h1>Ok</h1>")
+	})
+
 	v1 := router.Group("/v1")
 	ss := v1.Group("/screenshots")
 

@@ -5,6 +5,8 @@ import (
 	"github.com/asaskevich/govalidator"
 	"github.com/labstack/echo/v4"
 	"github.com/s4kibs4mi/snapify/errors"
+	"net/http"
+	"strings"
 )
 
 type ReqCreateScreenshot struct {
@@ -40,4 +42,44 @@ func ValidateCreateScreenshot(ctx echo.Context) (*ReqCreateScreenshot, error) {
 	}
 
 	return nil, &ve
+}
+
+func ValidateCreateScreenshotFromFile(ctx echo.Context) (*ReqCreateScreenshot, error) {
+	if err := ctx.Request().ParseMultipartForm(32 << 20); err != nil {
+		return nil, err
+	}
+
+	r := ctx.Request()
+	r.Body = http.MaxBytesReader(ctx.Response(), r.Body, 32<<20) // 32 Mb
+
+	f, h, err := r.FormFile("file")
+	if err != nil {
+		return nil, err
+	}
+
+	body := make([]byte, h.Size)
+	_, err = f.Read(body)
+	if err != nil {
+		return nil, err
+	}
+
+	pld := ReqCreateScreenshot{}
+
+	ve := errors.ValidationError{}
+
+	urls := strings.Split(string(body), ";")
+	for _, u := range urls {
+		u = strings.TrimSpace(u)
+		if !govalidator.IsURL(u) {
+			ve.Add(fmt.Sprintf("url: %s", u), "is invalid")
+			continue
+		}
+
+		pld.URLs = append(pld.URLs, u)
+	}
+
+	if len(ve) > 0 {
+		return nil, &ve
+	}
+	return &pld, nil
 }

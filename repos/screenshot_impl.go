@@ -74,10 +74,6 @@ func (ssr *ScreenshotRepoImpl) Count(db *gorm.DB) (int, error) {
 	return count, nil
 }
 
-func (ssr *ScreenshotRepoImpl) Search(db *gorm.DB, query string, page, limit int64) ([]models.Screenshot, error) {
-	return nil, nil
-}
-
 func (ssr *ScreenshotRepoImpl) Get(db *gorm.DB, ID string) (*models.Screenshot, error) {
 	m := models.Screenshot{}
 	if err := db.Model(&m).Where("id = ?", ID).First(&m).Error; err != nil {
