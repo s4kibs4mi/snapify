@@ -236,10 +236,10 @@ Result `200`
 
 #### Dependencies
 
-- PostgreSQL
-- RabbitMQ
-- Minio
-- ChromeHeadless browser via chromedp
+- PostgreSQL : As data storage
+- RabbitMQ : To process task async
+- Minio : To store images
+- ChromeHeadless browser via chromedp : To browse website and take screenshots
 
 #### App Build
 ```bash
@@ -268,6 +268,7 @@ docker-compose.up -d
 ```text
 Web service will be running on port 9010.
 To change check config.yml file.
+
 Now enter into snapify docker container,
 
 docker ps
