@@ -282,8 +282,9 @@ snapify migration up --config_path /root/ --config_name config
 You are ready to go.
 ```
 
-Note :
-config.yml configured to use in docker container.
-config.example.yml configured to run locally. Before running locally make sure dependencies are running and configured correctly.
+Note :<br/>
+config.yml configured to use in docker container.<br/>
+config.example.yml configured to run locally.<br/>
+Before running locally make sure dependencies are running and configured correctly.
 
 #### [Postman Collection](https://www.getpostman.com/collections/30baacd0726c964733d4)
