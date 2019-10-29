@@ -289,4 +289,6 @@ config.yml configured to use in docker container.<br/>
 config.example.yml configured to run locally.<br/>
 Before running locally make sure dependencies are running and configured correctly.
 
+*** Screen shot taking is a complex process it may take long time to complete the task.
+
 #### [Postman Collection](https://www.getpostman.com/collections/30baacd0726c964733d4)
