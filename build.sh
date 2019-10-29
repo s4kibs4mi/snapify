@@ -23,7 +23,7 @@ fi
 
 if [ "$cmd" = "instant" ]; then
   echo "Executing instant command"
-  ./${binary} instant --url "$2" --out "$3"
+  ./${binary} instant --url "$2" --out "$3" --config_path ./ --config_name config.example
   exit
 fi
 

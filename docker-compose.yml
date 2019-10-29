@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   snapify:
-    image: s4kibs4mi/snapify:1.0.0
+    image: s4kibs4mi/snapify:1.0.1
     command: ["serve", "--config_path", "/root/", "--config_name", "config"]
     restart: on-failure
     ports:
