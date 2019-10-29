@@ -1,7 +1,7 @@
 # Snapify
 Screen shot as a service of web pages.
 
-`docker image : s4kibs4mi/snapify:1.0.2`
+`docker image : s4kibs4mi/snapify:1.0.7`
 
 #### Commands
 * `instant` - takes an url as input and provides screen shot as output<br/>
