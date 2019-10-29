@@ -25,5 +25,3 @@ FROM chromedp/headless-shell:latest
 WORKDIR /root
 
 COPY --from=builder /go/bin/snapify /usr/local/bin/snapify
-
-ENTRYPOINT ["snapify"]

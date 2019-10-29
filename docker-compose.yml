@@ -2,11 +2,12 @@ version: '3.1'
 
 services:
   snapify:
-    image: s4kibs4mi/snapify:0.0.2
-    command: ["serve", "--config_path", "/root/"]
+    image: s4kibs4mi/snapify:0.0.3
+    command: ["snapify", "serve", "--config_path", "/root/"]
     restart: on-failure
     ports:
       - 9010:9010
+      - 9222:9222
     volumes:
       - "./config.yml:/root/config.yml"
     depends_on:

@@ -2,17 +2,27 @@ package core
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/chromedp/cdproto/emulation"
 	"github.com/chromedp/cdproto/page"
 	"github.com/chromedp/chromedp"
+	"github.com/s4kibs4mi/snapify/config"
 	"github.com/s4kibs4mi/snapify/utils"
 	"io/ioutil"
 	"math"
+	"net/http"
 )
 
 func TakeScreenShotAndSave(url string, directory string) error {
-	ctx, _ := chromedp.NewContext(context.Background())
+	url, err := getDebugURL()
+	if err != nil {
+		return err
+	}
+
+	orgCtx, cancelCtx := chromedp.NewRemoteAllocator(context.Background(), url)
+	ctx, _ := chromedp.NewContext(orgCtx)
+	defer cancelCtx()
 
 	url = utils.FormatUrlWithProtocol(url)
 
@@ -68,7 +78,14 @@ func TakeScreenShotAndSave(url string, directory string) error {
 }
 
 func TakeScreenShot(url string) ([]byte, error) {
-	ctx, _ := chromedp.NewContext(context.Background())
+	url, err := getDebugURL()
+	if err != nil {
+		return nil, err
+	}
+
+	orgCtx, cancelCtx := chromedp.NewRemoteAllocator(context.Background(), url)
+	ctx, _ := chromedp.NewContext(orgCtx)
+	defer cancelCtx()
 
 	url = utils.FormatUrlWithProtocol(url)
 
@@ -115,4 +132,18 @@ func TakeScreenShot(url string) ([]byte, error) {
 		return nil, err
 	}
 	return result, nil
+}
+
+func getDebugURL() (string, error) {
+	resp, err := http.Get(fmt.Sprintf("%s/json/version", config.App().ChromeHeadlessUrl))
+	if err != nil {
+		return "", err
+	}
+
+	var result map[string]interface{}
+
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return "", err
+	}
+	return result["webSocketDebuggerUrl"].(string), nil
 }
