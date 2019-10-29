@@ -78,6 +78,10 @@ func ValidateCreateScreenshotFromFile(ctx echo.Context) (*ReqCreateScreenshot, e
 		pld.URLs = append(pld.URLs, u)
 	}
 
+	if len(urls) > 10000 {
+		ve.Add("urls", "must not be more than 10000")
+	}
+
 	if len(ve) > 0 {
 		return nil, &ve
 	}
