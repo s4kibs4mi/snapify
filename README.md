@@ -248,7 +248,7 @@ Result `200`
 
 #### Docker Image Build
 ```bash
-./build.sh docker {{docker_version}}
+./build.sh docker {docker_version}
 ```
 
 #### App Run
@@ -261,9 +261,9 @@ Result `200`
 ./build.sh up
 ```
 
-#### Run complete system
+## Run complete system
 ```bash
-docker-compose.up -d
+docker-compose up -d
 ```
 ```text
 Web service will be running on port 9010.
@@ -272,13 +272,18 @@ To change check config.yml file.
 Now enter into snapify docker container,
 
 docker ps
+
 docker exec -it {snapify_container_id} sh
 
-Then,
+Then in container execute,
 
 snapify migration up --config_path /root/ --config_name config
 
 You are ready to go.
 ```
+
+Note :
+config.yml configured to use in docker container.
+config.example.yml configured to run locally. Before running locally make sure dependencies are running and configured correctly.
 
 #### [Postman Collection](https://www.getpostman.com/collections/30baacd0726c964733d4)
