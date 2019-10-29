@@ -1,6 +1,6 @@
 app:
   host: "0.0.0.0"
-  port: 9009
+  port: 9010
   log_level: "debug"
 
 database:
@@ -15,12 +15,12 @@ database:
 
 rabbitmq:
   broker: "amqp://test:test@localhost:5672/"
-  default_queue: "machinery_tasks"
+  default_queue: "snapify_tasks"
   result_backend: "amqp://test:test@localhost:5672/"
   amqp:
-    exchange: "machinery_exchange"
+    exchange: "snapify_exchange"
     exchange_type: "direct"
-    binding_key: "machinery_tasks"
+    binding_key: "snapify_tasks"
     prefetch_count: 5
   worker:
     name: "worker-1"

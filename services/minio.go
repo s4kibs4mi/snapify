@@ -7,6 +7,23 @@ import (
 	"io"
 )
 
+func CreateMinioBucket() error {
+	conn := app.Minio()
+	cfg := config.Minio()
+
+	ok, err := conn.BucketExists(cfg.Bucket)
+	if err != nil {
+		return err
+	}
+	if ok {
+		return nil
+	}
+	if err := conn.MakeBucket(cfg.Bucket, cfg.Location); err != nil {
+		return err
+	}
+	return nil
+}
+
 func UploadToMinio(fileName, contentType string, reader io.Reader, size int) error {
 	conn := app.Minio()
 	cfg := config.Minio()

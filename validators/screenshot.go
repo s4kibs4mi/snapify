@@ -8,7 +8,7 @@ import (
 )
 
 type ReqCreateScreenshot struct {
-	URLs []string `json:"urls" valid:"required;range(1|10000)"`
+	URLs []string `json:"urls" valid:"required,length(1|10000)"`
 }
 
 func ValidateCreateScreenshot(ctx echo.Context) (*ReqCreateScreenshot, error) {

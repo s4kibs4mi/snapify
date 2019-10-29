@@ -78,12 +78,12 @@ func TakeScreenShot(url string) ([]byte, error) {
 		chromedp.Navigate(url),
 		chromedp.CaptureScreenshot(&result),
 		chromedp.ActionFunc(func(ctx context.Context) error {
-			_, _, view, err := page.GetLayoutMetrics().Do(ctx)
+			_, viewHeight, viewWidth, err := page.GetLayoutMetrics().Do(ctx)
 			if err != nil {
 				return err
 			}
 
-			width, height := int64(math.Ceil(view.Width)), int64(math.Ceil(view.Height))
+			width, height := int64(math.Ceil(viewWidth.Width)), int64(math.Ceil(viewHeight.ClientHeight))
 
 			err = emulation.SetDeviceMetricsOverride(width, height, 1, false).
 				WithScreenOrientation(&emulation.ScreenOrientation{
@@ -98,11 +98,11 @@ func TakeScreenShot(url string) ([]byte, error) {
 			res, err := page.CaptureScreenshot().
 				WithQuality(100).
 				WithClip(&page.Viewport{
-					X:      view.X,
-					Y:      view.Y,
-					Width:  view.Width,
-					Height: view.Height,
-					Scale:  1,
+					X:      0,
+					Y:      0,
+					Width:  float64(width),
+					Height: float64(height),
+					Scale:  2,
 				}).Do(ctx)
 			if err != nil {
 				return err

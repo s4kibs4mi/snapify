@@ -23,7 +23,7 @@ func (r *response) ServerJSON(ctx echo.Context) error {
 
 func (r *response) ServerImageFromMinio(ctx echo.Context, object *minio.Object) error {
 	s, _ := object.Stat()
-	fileName := fmt.Sprintf("%s", ctx.Param("file_name"))
+	fileName := fmt.Sprintf("%s.png", s.Key)
 	ctx.Response().Header().Set("Content-Disposition", fmt.Sprintf("inline; filename=\"%s\"", fileName))
 	ctx.Response().Header().Set("Content-Type", s.ContentType)
 

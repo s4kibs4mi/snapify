@@ -7,6 +7,7 @@ import (
 	"github.com/s4kibs4mi/snapify/app"
 	"github.com/s4kibs4mi/snapify/core"
 	"github.com/s4kibs4mi/snapify/log"
+	"github.com/s4kibs4mi/snapify/models"
 	"github.com/s4kibs4mi/snapify/repos"
 	"github.com/s4kibs4mi/snapify/services"
 	"github.com/s4kibs4mi/snapify/utils"
@@ -29,19 +30,23 @@ func TakeScreenShot(ID string) error {
 
 	result, err := core.TakeScreenShot(m.Website)
 	if err != nil {
+		log.Log().Errorln(err)
 		return tasks.NewErrRetryTaskLater(err.Error(), time.Second*10)
 	}
 
-	path := utils.NewUUID() + "-" + utils.FormatUrlWithoutProtocol(m.Website)
+	path := utils.NewUUID() + "-" + utils.FormatUrlWithoutProtocol(m.Website) + ".png"
 
 	if err := services.UploadToMinio(path, "image/png", bytes.NewReader(result), len(result)); err != nil {
+		log.Log().Errorln(err)
 		return tasks.NewErrRetryTaskLater(err.Error(), time.Second*10)
 	}
 
+	m.Status = models.Done
 	m.StoredPath = path
 	m.UpdatedAt = time.Now()
 
 	if err := repo.Update(app.DB(), m); err != nil {
+		log.Log().Errorln(err)
 		return tasks.NewErrRetryTaskLater(err.Error(), time.Second*10)
 	}
 	return nil

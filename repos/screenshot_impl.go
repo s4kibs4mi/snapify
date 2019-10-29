@@ -48,7 +48,30 @@ func (ssr *ScreenshotRepoImpl) Update(db *gorm.DB, m *models.Screenshot) error {
 }
 
 func (ssr *ScreenshotRepoImpl) List(db *gorm.DB, page, limit int64) ([]models.Screenshot, error) {
-	return nil, nil
+	var data []models.Screenshot
+	m := models.Screenshot{}
+	if err := db.Model(&m).
+		Order("created_at DESC", false).
+		Offset((page * limit) - limit).
+		Limit(limit).
+		Find(&data).Error; err != nil {
+		return nil, err
+	}
+
+	if len(data) == 0 {
+		data = []models.Screenshot{}
+	}
+	return data, nil
+}
+
+func (ssr *ScreenshotRepoImpl) Count(db *gorm.DB) (int, error) {
+	var count int
+	m := models.Screenshot{}
+	if err := db.Model(&m).
+		Count(&count).Error; err != nil {
+		return 0, err
+	}
+	return count, nil
 }
 
 func (ssr *ScreenshotRepoImpl) Search(db *gorm.DB, query string, page, limit int64) ([]models.Screenshot, error) {

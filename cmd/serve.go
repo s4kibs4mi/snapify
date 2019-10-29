@@ -7,6 +7,7 @@ import (
 	"github.com/s4kibs4mi/snapify/app"
 	"github.com/s4kibs4mi/snapify/config"
 	"github.com/s4kibs4mi/snapify/log"
+	"github.com/s4kibs4mi/snapify/services"
 	"github.com/s4kibs4mi/snapify/worker"
 	"github.com/spf13/cobra"
 	"net/http"
@@ -30,6 +31,10 @@ var serveCmd = &cobra.Command{
 		}
 		if err := app.ConnectMinio(); err != nil {
 			log.Log().Errorln("Failed to connect to minio : ", err)
+			os.Exit(-1)
+		}
+		if err := services.CreateMinioBucket(); err != nil {
+			log.Log().Errorln("Failed to check minio bucket existence : ", err)
 			os.Exit(-1)
 		}
 		if err := worker.NewMachineryServer(); err != nil {

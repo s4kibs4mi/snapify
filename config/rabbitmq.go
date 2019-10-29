@@ -30,7 +30,7 @@ func LoadRabbitMQ() {
 
 	rabbitmq = RabbitMQCfg{
 		Broker:        viper.GetString("rabbitmq.broker"),
-		DefaultQueue:  viper.GetString("rabbitmq.default_backend"),
+		DefaultQueue:  viper.GetString("rabbitmq.default_queue"),
 		ResultBackend: viper.GetString("rabbitmq.result_backend"),
 		Worker: Worker{
 			Name:  viper.GetString("rabbitmq.worker.name"),
