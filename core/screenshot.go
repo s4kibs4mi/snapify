@@ -7,11 +7,11 @@ import (
 	"github.com/chromedp/cdproto/emulation"
 	"github.com/chromedp/cdproto/page"
 	"github.com/chromedp/chromedp"
+	"github.com/nahid/gohttp"
 	"github.com/s4kibs4mi/snapify/config"
 	"github.com/s4kibs4mi/snapify/utils"
 	"io/ioutil"
 	"math"
-	"net/http"
 )
 
 func TakeScreenShotAndSave(url string, directory string) error {
@@ -135,14 +135,20 @@ func TakeScreenShot(url string) ([]byte, error) {
 }
 
 func getDebugURL() (string, error) {
-	resp, err := http.Get(fmt.Sprintf("%s/json/version", config.App().ChromeHeadlessUrl))
+	resp, err := gohttp.NewRequest().
+		Get(fmt.Sprintf("%s/json/version", config.App().ChromeHeadlessUrl))
+	if err != nil {
+		return "", err
+	}
+
+	b, err := ioutil.ReadAll(resp.GetBody())
 	if err != nil {
 		return "", err
 	}
 
 	var result map[string]interface{}
 
-	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+	if err := json.Unmarshal(b, &result); err != nil {
 		return "", err
 	}
 	return result["webSocketDebuggerUrl"].(string), nil

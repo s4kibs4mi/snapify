@@ -9,9 +9,9 @@ import (
 var mu sync.Mutex
 
 // LoadConfig initiates of config load
-func LoadConfig(configPath string) error {
+func LoadConfig(configPath string, configName string) error {
 	viper.SetConfigType("yml")
-	viper.SetConfigName("config")
+	viper.SetConfigName(configName)
 	viper.AddConfigPath(configPath)
 
 	if err := viper.ReadInConfig(); err != nil {

@@ -20,7 +20,7 @@ var serveCmd = &cobra.Command{
 	Use: "serve",
 	Run: serve,
 	PreRun: func(cmd *cobra.Command, args []string) {
-		if err := config.LoadConfig(configPath); err != nil {
+		if err := config.LoadConfig(configPath, configName); err != nil {
 			log.Log().Errorln("Failed to read config : ", err)
 			os.Exit(-1)
 		}
@@ -50,9 +50,11 @@ var serveCmd = &cobra.Command{
 }
 
 var configPath string
+var configName string
 
 func init() {
 	serveCmd.Flags().StringVar(&configPath, "config_path", "", "configuration path")
+	serveCmd.Flags().StringVar(&configName, "config_name", "", "configuration file name without extension")
 }
 
 func serve(cmd *cobra.Command, args []string) {

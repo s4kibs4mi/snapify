@@ -17,7 +17,7 @@ fi
 
 if [ "$cmd" = "serve" ]; then
   echo "Executing serve command"
-  ./${binary} serve --config_path ./
+  ./${binary} serve --config_path ./ --config_name config.example
   exit
 fi
 

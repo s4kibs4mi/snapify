@@ -14,7 +14,7 @@ var UpCmd = &cobra.Command{
 	Short: "up creates database tables",
 	Run:   up,
 	PreRun: func(cmd *cobra.Command, args []string) {
-		if err := config.LoadConfig(upConfigPath); err != nil {
+		if err := config.LoadConfig(upCmdConfigPath, upCmdConfigName); err != nil {
 			log.Log().Errorln("Failed to read config : ", err)
 			os.Exit(-1)
 		}
@@ -26,10 +26,12 @@ var UpCmd = &cobra.Command{
 	},
 }
 
-var upConfigPath string
+var upCmdConfigPath string
+var upCmdConfigName string
 
 func init() {
-	UpCmd.Flags().StringVar(&upConfigPath, "config_path", "", "configuration path")
+	UpCmd.Flags().StringVar(&upCmdConfigPath, "config_path", "", "configuration path")
+	UpCmd.Flags().StringVar(&upCmdConfigName, "config_name", "", "configuration file name without extension")
 }
 
 func up(cmd *cobra.Command, args []string) {

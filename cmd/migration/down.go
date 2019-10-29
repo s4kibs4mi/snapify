@@ -14,7 +14,7 @@ var DownCmd = &cobra.Command{
 	Short: "down drops database tables",
 	Run:   down,
 	PreRun: func(cmd *cobra.Command, args []string) {
-		if err := config.LoadConfig(downConfigPath); err != nil {
+		if err := config.LoadConfig(downCmdConfigPath, downCmdConfigName); err != nil {
 			log.Log().Errorln("Failed to read config : ", err)
 			os.Exit(-1)
 		}
@@ -26,10 +26,12 @@ var DownCmd = &cobra.Command{
 	},
 }
 
-var downConfigPath string
+var downCmdConfigPath string
+var downCmdConfigName string
 
 func init() {
-	DownCmd.Flags().StringVar(&downConfigPath, "config_path", "", "configuration path")
+	DownCmd.Flags().StringVar(&downCmdConfigPath, "config_path", "", "configuration path")
+	DownCmd.Flags().StringVar(&downCmdConfigName, "config_name", "", "configuration file name without extension")
 }
 
 func down(cmd *cobra.Command, args []string) {

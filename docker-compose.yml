@@ -2,18 +2,31 @@ version: '3.1'
 
 services:
   snapify:
-    image: s4kibs4mi/snapify:0.0.3
-    command: ["snapify", "serve", "--config_path", "/root/"]
+    image: s4kibs4mi/snapify:0.0.8
+    command: ["serve", "--config_path", "/root/", "--config_name", "config"]
     restart: on-failure
     ports:
       - 9010:9010
-      - 9222:9222
     volumes:
       - "./config.yml:/root/config.yml"
     depends_on:
       - database
       - rabbitmq
       - minio
+      - chrome-headless
+    links:
+      - chrome-headless
+    networks:
+      snapify_net:
+        ipv4_address: 172.28.1.1
+
+  chrome-headless:
+    image: chromedp/headless-shell:latest
+    ports:
+      - 9223:9222
+    networks:
+      snapify_net:
+        ipv4_address: 172.28.1.2
 
   database:
     image: postgres:10
@@ -25,6 +38,9 @@ services:
       POSTGRES_USER: root
     volumes:
       - "./storage/pg/:/var/lib/postgresql/data/"
+    networks:
+      snapify_net:
+        ipv4_address: 172.28.1.3
 
   minio:
     image: minio/minio
@@ -36,6 +52,9 @@ services:
     command: ["server", "/data"]
     volumes:
       - "./storage/minio/:/data/"
+    networks:
+      snapify_net:
+        ipv4_address: 172.28.1.4
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
@@ -45,3 +64,13 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+    networks:
+      snapify_net:
+        ipv4_address: 172.28.1.5
+
+networks:
+  snapify_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16

@@ -11,6 +11,7 @@ require (
 	github.com/jinzhu/gorm v1.9.11
 	github.com/labstack/echo/v4 v4.1.11
 	github.com/minio/minio-go v6.0.14+incompatible
+	github.com/nahid/gohttp v0.0.1
 	github.com/satori/go.uuid v1.2.0
 	github.com/sirupsen/logrus v1.4.2
 	github.com/smartystreets/goconvey v0.0.0-20190731233626-505e41936337 // indirect
