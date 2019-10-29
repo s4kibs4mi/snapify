@@ -76,7 +76,7 @@ func (ssr *ScreenshotRepoImpl) Count(db *gorm.DB) (int, error) {
 
 func (ssr *ScreenshotRepoImpl) Get(db *gorm.DB, ID string) (*models.Screenshot, error) {
 	m := models.Screenshot{}
-	if err := db.Model(&m).Where("id = ?", ID).First(&m).Error; err != nil {
+	if err := db.Table(m.TableName()).Where("id = ?", ID).First(&m).Error; err != nil {
 		return nil, err
 	}
 	return &m, nil
