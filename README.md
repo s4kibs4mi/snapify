@@ -7,7 +7,9 @@ Screen shot as a service of web pages.
 * `instant` - takes an url as input and provides screen shot as output<br/>
     params:<br/>
         --url - url of the website.<br/>
-        --out - directory where screen shot will be saved. 
+        --out - directory where screen shot will be saved<br/>
+        --config_path - configuration file directory (see config.example.yml) for configuration example<br/>
+        --config_name - name of the configuration file
 * `serve` - runs a RESTful webservice<br/>
     params:<br/>
         --config_path - configuration file directory (see config.example.yml) for configuration example<br/>
