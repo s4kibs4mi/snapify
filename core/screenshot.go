@@ -56,7 +56,7 @@ func TakeScreenShotAndSave(url string, directory string) error {
 					Y:      0,
 					Width:  float64(width),
 					Height: float64(height),
-					Scale:  2,
+					Scale:  1,
 				}).Do(ctx)
 			if err != nil {
 				return err
