@@ -5,11 +5,10 @@ go 1.12
 require (
 	github.com/RichardKnop/machinery v1.7.0
 	github.com/asaskevich/govalidator v0.0.0-20190424111038-f61b66f89f4a
-	github.com/chromedp/cdproto v0.0.0-20191009033829-c22f49c9ff0a
 	github.com/chromedp/chromedp v0.5.1
 	github.com/go-ini/ini v1.48.0 // indirect
 	github.com/jinzhu/gorm v1.9.11
-	github.com/labstack/echo/v4 v4.1.11
+	github.com/labstack/echo/v4 v4.9.0
 	github.com/minio/minio-go v6.0.14+incompatible
 	github.com/nahid/gohttp v0.0.1
 	github.com/satori/go.uuid v1.2.0
