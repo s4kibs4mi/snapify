@@ -55,7 +55,9 @@ func (q *queueService) EnqueueTakeScreenshot(screenshotID uuid.UUID) error {
 
 	task, err := q.queueClient.Enqueue(asynq.NewTask(constants.TaskNameHandleTakeScreenshot, pld,
 		asynq.ProcessAt(time.Now().Add(time.Second*5)),
-		asynq.Queue(q.queueName)))
+		asynq.Queue(q.queueName),
+		asynq.MaxRetry(3),
+		asynq.Timeout(time.Second*30)))
 
 	q.logger.Info("Enqueued taskID: ", task.ID)
 
