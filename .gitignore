@@ -1,5 +1,6 @@
-.idea
-out
+.idea/
 go.sum
-snapify
 storage
+bin/
+/deploy/docker/blobStorage/
+/deploy/docker/database/

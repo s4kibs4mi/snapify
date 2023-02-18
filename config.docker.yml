@@ -3,12 +3,12 @@ app:
   port: 9010
   log_level: "debug"
   redis_password: test
-  redis_addr: "localhost:6379"
+  redis_addr: "redis:6379"
   redis_queue_name: "screenshot_queue"
-  headless_browser_url: "http://localhost:7317"
+  headless_browser_url: "http://browser:7317"
 
 database:
-  host: "localhost"
+  host: "database"
   port: 5432
   username: "root"
   password: "test"
@@ -18,7 +18,7 @@ database:
   max_connection_lifetime: 2
 
 blog_storage:
-  base_url: "localhost:9000"
+  base_url: "minio:9000"
   key: "MINIO_ACCESS_KEY"
   secret: "MINIO_SECRET_KEY"
   bucket: "snapify"
