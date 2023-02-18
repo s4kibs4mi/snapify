@@ -12,7 +12,6 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"github.com/s4kibs4mi/snapify/ent/screenshot"
-	"github.com/s4kibs4mi/snapify/ent/token"
 )
 
 // ent aliases to avoid import conflicts in user's code.
@@ -41,7 +40,6 @@ type OrderFunc func(*sql.Selector)
 func columnChecker(table string) func(string) error {
 	checks := map[string]func(string) bool{
 		screenshot.Table: screenshot.ValidColumn,
-		token.Table:      token.ValidColumn,
 	}
 	check, ok := checks[table]
 	if !ok {

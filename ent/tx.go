@@ -14,8 +14,6 @@ type Tx struct {
 	config
 	// Screenshot is the client for interacting with the Screenshot builders.
 	Screenshot *ScreenshotClient
-	// Token is the client for interacting with the Token builders.
-	Token *TokenClient
 
 	// lazily loaded.
 	client     *Client
@@ -148,7 +146,6 @@ func (tx *Tx) Client() *Client {
 
 func (tx *Tx) init() {
 	tx.Screenshot = NewScreenshotClient(tx.config)
-	tx.Token = NewTokenClient(tx.config)
 }
 
 // txDriver wraps the given dialect.Tx with a nop dialect.Driver implementation.

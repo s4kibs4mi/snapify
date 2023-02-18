@@ -21,18 +21,6 @@ func (f ScreenshotFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, 
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ScreenshotMutation", m)
 }
 
-// The TokenFunc type is an adapter to allow the use of ordinary
-// function as Token mutator.
-type TokenFunc func(context.Context, *ent.TokenMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f TokenFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.TokenMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.TokenMutation", m)
-}
-
 // Condition is a hook condition function.
 type Condition func(context.Context, ent.Mutation) bool
 

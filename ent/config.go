@@ -28,11 +28,9 @@ type config struct {
 type (
 	hooks struct {
 		Screenshot []ent.Hook
-		Token      []ent.Hook
 	}
 	inters struct {
 		Screenshot []ent.Interceptor
-		Token      []ent.Interceptor
 	}
 )
 

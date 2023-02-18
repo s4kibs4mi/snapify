@@ -8,6 +8,3 @@ import (
 
 // Screenshot is the predicate function for screenshot builders.
 type Screenshot func(*sql.Selector)
-
-// Token is the predicate function for token builders.
-type Token func(*sql.Selector)

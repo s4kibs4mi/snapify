@@ -6,6 +6,7 @@ app:
   redis_addr: "redis:6379"
   redis_queue_name: "screenshot_queue"
   headless_browser_url: "http://browser:7317"
+  auth_token: "v2?KDqbV7hhy64oJUPWB9HVxb2ZH35oAQhb!DqI=Eyhiw9DL!7Qvl6hzqJ76eGk2SgPjC/MS93=u8hyZMX?PAlhyKN0L52ln=LnFhm9Lu4HxQVg1hVDRJ=u8GToCZwex??oFdMeA?2FEB-maAUIsZ92JlrQOwQgAYqS3RnpxqJrs7lbUlaKZLxQPRV13i/ZYrDyza!d!PwUMb4UK2a8oiTwqrd8Z/1jEVL?S2?YOr!DReaDMv/KgVWq6kJJ1DC3Y"
 
 database:
   host: "database"

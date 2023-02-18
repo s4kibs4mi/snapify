@@ -50,7 +50,6 @@ func main() {
 	}
 
 	screenshotDao := dao.NewScreenshotDao(client, logger)
-	tokenDao := dao.NewTokenDao(client, logger)
 
 	storageService, err := services.NewMinioService(cfg, logger)
 	if err != nil {
@@ -66,7 +65,7 @@ func main() {
 		logger.Fatal("failed to initialize queuing service", err)
 	}
 
-	handlers := api.NewHandlers(screenshotDao, tokenDao, queueService, storageService, logger)
+	handlers := api.NewHandlers(cfg, screenshotDao, queueService, storageService, logger)
 	apiServer := api.NewServer(cfg)
 
 	stop := make(chan os.Signal)

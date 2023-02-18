@@ -34,28 +34,9 @@ var (
 			},
 		},
 	}
-	// TokensColumns holds the columns for the "tokens" table.
-	TokensColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeUUID},
-		{Name: "token", Type: field.TypeString},
-	}
-	// TokensTable holds the schema information for the "tokens" table.
-	TokensTable = &schema.Table{
-		Name:       "tokens",
-		Columns:    TokensColumns,
-		PrimaryKey: []*schema.Column{TokensColumns[0]},
-		Indexes: []*schema.Index{
-			{
-				Name:    "token_token",
-				Unique:  true,
-				Columns: []*schema.Column{TokensColumns[1]},
-			},
-		},
-	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
 		ScreenshotsTable,
-		TokensTable,
 	}
 )
 

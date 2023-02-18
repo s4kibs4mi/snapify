@@ -18,6 +18,7 @@ type AppCfg struct {
 	RedisUsername      string
 	RedisQueueName     string
 	HeadlessBrowserUrl string
+	AuthToken          string
 	DBCfg              DBCfg
 	BlobStorageCfg     BlobStorageCfg
 }

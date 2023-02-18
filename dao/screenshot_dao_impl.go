@@ -21,7 +21,6 @@ func NewScreenshotDao(client *ent.Client, logger log.IAppLogger) IScreenshotDao 
 		CommonDao: CommonDao{
 			client:           client,
 			screenshotClient: client.Screenshot,
-			tokenClient:      client.Token,
 		},
 		logger: logger,
 	}
@@ -40,7 +39,6 @@ func (d *screenshotDao) Tx(tx *ent.Tx) (IScreenshotDao, *ent.Tx, error) {
 		CommonDao: CommonDao{
 			client:           d.client,
 			screenshotClient: tx.Screenshot,
-			tokenClient:      tx.Token,
 		},
 		logger: d.logger,
 	}, tx, nil
