@@ -19,14 +19,14 @@ func LoadConfig() (*AppCfg, error) {
 
 func LoadConfigWithViper(v *viper.Viper) (*AppCfg, error) {
 	return &AppCfg{
-		Base:              v.GetString("app.host"),
-		Port:              v.GetInt("app.port"),
-		LogLevel:          LogLevel(v.GetString("app.log_level")),
-		ChromeHeadlessUrl: v.GetString("app.chrome_headless_url"),
-		RedisAddr:         v.GetString("app.redis_addr"),
-		RedisUsername:     v.GetString("app.redis_username"),
-		RedisPassword:     v.GetString("app.redis_password"),
-		RedisQueueName:    v.GetString("app.redis_queue_name"),
+		Base:               v.GetString("app.host"),
+		Port:               v.GetInt("app.port"),
+		LogLevel:           LogLevel(v.GetString("app.log_level")),
+		HeadlessBrowserUrl: v.GetString("app.headless_browser_url"),
+		RedisAddr:          v.GetString("app.redis_addr"),
+		RedisUsername:      v.GetString("app.redis_username"),
+		RedisPassword:      v.GetString("app.redis_password"),
+		RedisQueueName:     v.GetString("app.redis_queue_name"),
 		DBCfg: DBCfg{
 			Name:                  v.GetString("database.name"),
 			Username:              v.GetString("database.username"),
@@ -38,13 +38,13 @@ func LoadConfigWithViper(v *viper.Viper) (*AppCfg, error) {
 			MaxConnectionLifetime: v.GetDuration("database.max_connection_lifetime") * time.Minute,
 		},
 		BlobStorageCfg: BlobStorageCfg{
-			BaseURL:      v.GetString("minio.base_url"),
-			Key:          v.GetString("minio.key"),
-			Secret:       v.GetString("minio.secret"),
-			Bucket:       v.GetString("minio.bucket"),
-			Location:     v.GetString("minio.location"),
-			SignDuration: v.GetDuration("minio.sign_duration") * time.Minute,
-			IsSecure:     v.GetBool("minio.is_secure"),
+			BaseURL:      v.GetString("blog_storage.base_url"),
+			Key:          v.GetString("blog_storage.key"),
+			Secret:       v.GetString("blog_storage.secret"),
+			Bucket:       v.GetString("blog_storage.bucket"),
+			Location:     v.GetString("blog_storage.location"),
+			SignDuration: v.GetDuration("blog_storage.signed_duration") * time.Minute,
+			IsSecure:     v.GetBool("blog_storage.is_secure"),
 		},
 	}, nil
 }

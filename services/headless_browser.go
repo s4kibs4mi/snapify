@@ -21,7 +21,7 @@ type headlessBrowserService struct {
 }
 
 func NewHeadlessBrowserService(cfg *config.AppCfg, logger log.IAppLogger) (IHeadlessBrowser, error) {
-	lu, err := launcher.NewManaged(cfg.ChromeHeadlessUrl)
+	lu, err := launcher.NewManaged(cfg.HeadlessBrowserUrl)
 	if err != nil {
 		return nil, err
 	}

@@ -10,14 +10,14 @@ const (
 )
 
 type AppCfg struct {
-	Base              string
-	Port              int
-	LogLevel          LogLevel
-	RedisAddr         string
-	RedisPassword     string
-	RedisUsername     string
-	RedisQueueName    string
-	ChromeHeadlessUrl string
-	DBCfg             DBCfg
-	BlobStorageCfg    BlobStorageCfg
+	Base               string
+	Port               int
+	LogLevel           LogLevel
+	RedisAddr          string
+	RedisPassword      string
+	RedisUsername      string
+	RedisQueueName     string
+	HeadlessBrowserUrl string
+	DBCfg              DBCfg
+	BlobStorageCfg     BlobStorageCfg
 }
