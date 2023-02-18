@@ -27,6 +27,8 @@ func (w *worker) HandleTakeScreenshot(ctx context.Context, task *asynq.Task) err
 
 	ssPath, err := w.browserService.TakeScreenshot(ss.URL)
 	if err != nil {
+		defer w.updateWithErr(ss)
+		w.logger.Error(err)
 		return err
 	}
 
@@ -34,6 +36,8 @@ func (w *worker) HandleTakeScreenshot(ctx context.Context, task *asynq.Task) err
 
 	storedPath, err := w.storageService.Save(ssPath)
 	if err != nil {
+		defer w.updateWithErr(ss)
+		w.logger.Error(err)
 		return err
 	}
 
@@ -44,9 +48,19 @@ func (w *worker) HandleTakeScreenshot(ctx context.Context, task *asynq.Task) err
 		SetStoredPath(storedPath).
 		Save(context.Background())
 	if err != nil {
+		w.logger.Error(err)
 		return err
 	}
 
 	w.logger.Info("Taking screenshot completed")
 	return nil
+}
+
+func (w *worker) updateWithErr(ss *ent.Screenshot) {
+	_, err := ss.Update().
+		SetStatus(models.Failed).
+		Save(context.Background())
+	if err != nil {
+		w.logger.Error(err)
+	}
 }
