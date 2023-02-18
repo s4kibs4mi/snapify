@@ -8,8 +8,8 @@ import (
 )
 
 // ScreenshotList is a function to list screenshots
-// @Summary Retrieve screenshots
-// @Description Retrieve screenshots
+// @Summary List screenshots
+// @Description List screenshots
 // @Param	Token	header	string	true	"Authentication header"
 // @Param	limit	query	string	false	"Number of items"
 // @Param	page	query	string	false	"Page index"

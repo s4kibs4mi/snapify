@@ -44,7 +44,7 @@ info:
 paths:
   /v1/screenshots:
     get:
-      description: Retrieve screenshots
+      description: List screenshots
       parameters:
       - description: Authentication header
         in: header
@@ -73,7 +73,7 @@ paths:
                     $ref: '#/definitions/apimodels.RespScreenshotData'
                   type: array
               type: object
-      summary: Retrieve screenshots
+      summary: List screenshots
       tags:
       - screenshots
     post:
@@ -108,12 +108,38 @@ paths:
       tags:
       - screenshots
   /v1/screenshots/{screenshot_id}:
+    delete:
+      description: Delete a specific screenshot
+      parameters:
+      - description: Authentication header
+        in: header
+        name: Token
+        required: true
+        type: string
+      - description: Screenshot UUID
+        in: path
+        name: screenshot_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      summary: Delete a specific screenshot
+      tags:
+      - screenshots
     get:
       description: Retrieve screenshot info
       parameters:
       - description: Authentication header
         in: header
         name: Token
+        required: true
+        type: string
+      - description: Screenshot UUID
+        in: path
+        name: screenshot_id
         required: true
         type: string
       produces:

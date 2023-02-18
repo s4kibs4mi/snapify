@@ -11,6 +11,7 @@ import (
 // @Summary Delete a specific screenshot
 // @Description Delete a specific screenshot
 // @Param	Token	header	string	true	"Authentication header"
+// @Param	screenshot_id	path	string	true	"Screenshot UUID"
 // @Tags screenshots
 // @Produce json
 // @Success 204

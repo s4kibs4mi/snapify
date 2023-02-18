@@ -13,6 +13,7 @@ import (
 // @Summary Retrieve screenshot info
 // @Description Retrieve screenshot info
 // @Param	Token	header	string	true	"Authentication header"
+// @Param	screenshot_id	path	string	true	"Screenshot UUID"
 // @Tags screenshots
 // @Produce json
 // @Success 200 {object} apimodels.RespScreenshot{data=apimodels.RespScreenshotData}

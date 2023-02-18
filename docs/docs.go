@@ -24,14 +24,14 @@ const docTemplate = `{
     "paths": {
         "/v1/screenshots": {
             "get": {
-                "description": "Retrieve screenshots",
+                "description": "List screenshots",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "screenshots"
                 ],
-                "summary": "Retrieve screenshots",
+                "summary": "List screenshots",
                 "parameters": [
                     {
                         "type": "string",
@@ -146,6 +146,13 @@ const docTemplate = `{
                         "name": "Token",
                         "in": "header",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Screenshot UUID",
+                        "name": "screenshot_id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -166,6 +173,37 @@ const docTemplate = `{
                                 }
                             ]
                         }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a specific screenshot",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "screenshots"
+                ],
+                "summary": "Delete a specific screenshot",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authentication header",
+                        "name": "Token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Screenshot UUID",
+                        "name": "screenshot_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
                     }
                 }
             }
