@@ -7,6 +7,16 @@ import (
 	"time"
 )
 
+// ScreenshotCreate is a function to create screenshot
+// @Summary Queues a task to take screenshot of given URL
+// @Description Queues a task to take screenshot of given URL
+// @Param	Token	header	string	true	"Authentication header"
+// @Param	""	body	apimodels.ReqScreenshotCreate	true	"Create screenshot payload"
+// @Tags screenshots
+// @Accept json
+// @Produce json
+// @Success 202 {object} apimodels.RespScreenshot{data=apimodels.RespScreenshotData}
+// @Router /v1/screenshots [post]
 func (h *handlers) ScreenshotCreate(ctx *fiber.Ctx) error {
 	req := &apimodels.ReqScreenshotCreate{}
 	if err := ctx.BodyParser(req); err != nil {
@@ -45,8 +55,8 @@ func (h *handlers) ScreenshotCreate(ctx *fiber.Ctx) error {
 		return h.Serve(ctx, http.StatusInternalServerError, map[string]interface{}{"err": err})
 	}
 
-	return h.Serve(ctx, http.StatusAccepted, map[string]interface{}{
-		"data": apimodels.RespScreenshot{
+	return h.Serve(ctx, http.StatusAccepted, apimodels.RespScreenshot{
+		Data: apimodels.RespScreenshotData{
 			ID:        screenshot.ID.String(),
 			URL:       screenshot.URL,
 			Status:    string(screenshot.Status),

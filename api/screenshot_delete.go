@@ -6,6 +6,16 @@ import (
 	"net/http"
 )
 
+// ScreenshotDelete is a function to list screenshots
+// @Summary Retrieve screenshots
+// @Description Retrieve screenshots
+// @Param	Token	header	string	true	"Authentication header"
+// @Param	limit	query	string	false	"Number of items"
+// @Param	page	query	string	false	"Page index"
+// @Tags screenshots
+// @Produce json
+// @Success 200 {object} apimodels.RespScreenshotList{data=[]apimodels.RespScreenshotData}
+// @Router /v1/screenshots [get]
 func (h *handlers) ScreenshotDelete(ctx *fiber.Ctx) error {
 	screenshotID := ctx.Params("id", "")
 	screenshotUUID, err := uuid.Parse(screenshotID)

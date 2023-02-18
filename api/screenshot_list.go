@@ -7,6 +7,16 @@ import (
 	"time"
 )
 
+// ScreenshotList is a function to list screenshots
+// @Summary Retrieve screenshots
+// @Description Retrieve screenshots
+// @Param	Token	header	string	true	"Authentication header"
+// @Param	limit	query	string	false	"Number of items"
+// @Param	page	query	string	false	"Page index"
+// @Tags screenshots
+// @Produce json
+// @Success 200 {object} apimodels.RespScreenshotList{data=[]apimodels.RespScreenshotData}
+// @Router /v1/screenshots [get]
 func (h *handlers) ScreenshotList(ctx *fiber.Ctx) error {
 	query := struct {
 		Page  int `json:"page"`
@@ -21,9 +31,9 @@ func (h *handlers) ScreenshotList(ctx *fiber.Ctx) error {
 		return h.Serve(ctx, http.StatusInternalServerError, map[string]interface{}{"err": err})
 	}
 
-	var formattedScreenshots []apimodels.RespScreenshot
+	var formattedScreenshots []apimodels.RespScreenshotData
 	for _, s := range screenshots {
-		formattedScreenshots = append(formattedScreenshots, apimodels.RespScreenshot{
+		formattedScreenshots = append(formattedScreenshots, apimodels.RespScreenshotData{
 			ID:        s.ID.String(),
 			URL:       s.URL,
 			Status:    string(s.Status),
@@ -31,7 +41,7 @@ func (h *handlers) ScreenshotList(ctx *fiber.Ctx) error {
 		})
 	}
 
-	return h.Serve(ctx, http.StatusOK, fiber.Map{
-		"data": formattedScreenshots,
+	return h.Serve(ctx, http.StatusOK, apimodels.RespScreenshotList{
+		Data: formattedScreenshots,
 	})
 }

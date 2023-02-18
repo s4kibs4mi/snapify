@@ -23,6 +23,7 @@ func LoadConfigWithViper(v *viper.Viper) (*AppCfg, error) {
 		Port:               v.GetInt("app.port"),
 		LogLevel:           LogLevel(v.GetString("app.log_level")),
 		HeadlessBrowserUrl: v.GetString("app.headless_browser_url"),
+		AuthToken:          v.GetString("app.auth_token"),
 		RedisAddr:          v.GetString("app.redis_addr"),
 		RedisUsername:      v.GetString("app.redis_username"),
 		RedisPassword:      v.GetString("app.redis_password"),

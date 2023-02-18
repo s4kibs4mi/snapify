@@ -16,8 +16,18 @@ import (
 	"os/signal"
 
 	_ "github.com/jackc/pgx/v4/stdlib"
+	_ "github.com/s4kibs4mi/snapify/docs"
 )
 
+// @title Snapify
+// @version 2.0
+// @description A RESTful API service to take screenshot of any webpage.
+// @contact.name Md Samiul Alim Sakib
+// @contact.email s4kibs4mi@gmail.com
+// @license.name MIT
+// @license.url https://github.com/s4kibs4mi/snapify/blob/master/LICENSE
+// @host localhost:9010
+// @BasePath /
 func main() {
 	logger := log.New()
 	logger.Info("Logger initialized")

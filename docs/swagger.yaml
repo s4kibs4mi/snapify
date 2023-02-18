@@ -1,0 +1,134 @@
+basePath: /
+definitions:
+  apimodels.ReqScreenshotCreate:
+    properties:
+      url:
+        type: string
+    type: object
+  apimodels.RespScreenshot:
+    properties:
+      data:
+        $ref: '#/definitions/apimodels.RespScreenshotData'
+    type: object
+  apimodels.RespScreenshotData:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      screenshot_url:
+        type: string
+      status:
+        type: string
+      url:
+        type: string
+    type: object
+  apimodels.RespScreenshotList:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/apimodels.RespScreenshotData'
+        type: array
+    type: object
+host: localhost:9010
+info:
+  contact:
+    email: s4kibs4mi@gmail.com
+    name: Md Samiul Alim Sakib
+  description: A RESTful API service to take screenshot of any webpage.
+  license:
+    name: MIT
+    url: https://github.com/s4kibs4mi/snapify/blob/master/LICENSE
+  title: Snapify
+  version: "2.0"
+paths:
+  /v1/screenshots:
+    get:
+      description: Retrieve screenshots
+      parameters:
+      - description: Authentication header
+        in: header
+        name: Token
+        required: true
+        type: string
+      - description: Number of items
+        in: query
+        name: limit
+        type: string
+      - description: Page index
+        in: query
+        name: page
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/apimodels.RespScreenshotList'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/apimodels.RespScreenshotData'
+                  type: array
+              type: object
+      summary: Retrieve screenshots
+      tags:
+      - screenshots
+    post:
+      consumes:
+      - application/json
+      description: Queues a task to take screenshot of given URL
+      parameters:
+      - description: Authentication header
+        in: header
+        name: Token
+        required: true
+        type: string
+      - description: Create screenshot payload
+        in: body
+        name: '""'
+        required: true
+        schema:
+          $ref: '#/definitions/apimodels.ReqScreenshotCreate'
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: Accepted
+          schema:
+            allOf:
+            - $ref: '#/definitions/apimodels.RespScreenshot'
+            - properties:
+                data:
+                  $ref: '#/definitions/apimodels.RespScreenshotData'
+              type: object
+      summary: Queues a task to take screenshot of given URL
+      tags:
+      - screenshots
+  /v1/screenshots/{screenshot_id}:
+    get:
+      description: Retrieve screenshot info
+      parameters:
+      - description: Authentication header
+        in: header
+        name: Token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/apimodels.RespScreenshot'
+            - properties:
+                data:
+                  $ref: '#/definitions/apimodels.RespScreenshotData'
+              type: object
+      summary: Retrieve screenshot info
+      tags:
+      - screenshots
+swagger: "2.0"

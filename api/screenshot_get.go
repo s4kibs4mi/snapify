@@ -9,6 +9,14 @@ import (
 	"time"
 )
 
+// ScreenshotGet is a function to retrieve screenshot
+// @Summary Retrieve screenshot info
+// @Description Retrieve screenshot info
+// @Param	Token	header	string	true	"Authentication header"
+// @Tags screenshots
+// @Produce json
+// @Success 200 {object} apimodels.RespScreenshot{data=apimodels.RespScreenshotData}
+// @Router /v1/screenshots/{screenshot_id} [get]
 func (h *handlers) ScreenshotGet(ctx *fiber.Ctx) error {
 	screenshotID := ctx.Params("id", "")
 	screenshotUUID, err := uuid.Parse(screenshotID)
@@ -41,8 +49,8 @@ func (h *handlers) ScreenshotGet(ctx *fiber.Ctx) error {
 
 	h.logger.Info("SignedUrl: ", signedUrl)
 
-	return h.Serve(ctx, http.StatusOK, map[string]interface{}{
-		"data": apimodels.RespScreenshot{
+	return h.Serve(ctx, http.StatusOK, apimodels.RespScreenshot{
+		Data: apimodels.RespScreenshotData{
 			ID:            ss.ID.String(),
 			URL:           ss.URL,
 			Status:        string(ss.Status),

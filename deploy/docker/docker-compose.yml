@@ -1,38 +1,38 @@
 version: '3.1'
 
 services:
-  snapify-app:
-    build:
-      context: ../../
-      dockerfile: Dockerfile
-    entrypoint: [ "snapify-app" ]
-    restart: on-failure
-    environment:
-      CONFIG_FILE: "/root/config/config.yml"
-    ports:
-      - "9010:9010"
-    volumes:
-      - "./../../config.docker.yml:/root/config/config.yml"
-    depends_on:
-      - database
-      - minio
-      - redis
-
-  snapify-worker:
-    build:
-      context: ../../
-      dockerfile: Dockerfile
-    entrypoint: [ "snapify-worker" ]
-    restart: on-failure
-    environment:
-      CONFIG_FILE: "/root/config/config.yml"
-    volumes:
-      - "./../../config.docker.yml:/root/config/config.yml"
-    depends_on:
-      - database
-      - minio
-      - browser
-      - redis
+#  snapify-app:
+#    build:
+#      context: ../../
+#      dockerfile: Dockerfile
+#    entrypoint: [ "snapify-app" ]
+#    restart: on-failure
+#    environment:
+#      CONFIG_FILE: "/root/config/config.yml"
+#    ports:
+#      - "9010:9010"
+#    volumes:
+#      - "./../../config.docker.yml:/root/config/config.yml"
+#    depends_on:
+#      - database
+#      - minio
+#      - redis
+#
+#  snapify-worker:
+#    build:
+#      context: ../../
+#      dockerfile: Dockerfile
+#    entrypoint: [ "snapify-worker" ]
+#    restart: on-failure
+#    environment:
+#      CONFIG_FILE: "/root/config/config.yml"
+#    volumes:
+#      - "./../../config.docker.yml:/root/config/config.yml"
+#    depends_on:
+#      - database
+#      - minio
+#      - browser
+#      - redis
 
   browser:
     image: ghcr.io/go-rod/rod:v0.112.5

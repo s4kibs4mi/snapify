@@ -1,4 +1,4 @@
-.PHONY: build run_app run_worker build_image docker-up docker-down
+.PHONY: build run_app run_worker build_image docker-up docker-down gen_docs
 
 export GO111MODULE=on
 export CGO_ENABLED=0
@@ -23,3 +23,7 @@ docker-up:
 docker-down:
 	docker-compose -f ./deploy/docker/docker-compose.yml down
 	docker system prune
+
+gen_docs:
+	# https://github.com/gofiber/swagger
+	swag init -g ./cmd/app/main.go --dir ./
