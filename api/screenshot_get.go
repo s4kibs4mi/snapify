@@ -3,8 +3,10 @@ package api
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
+	"github.com/s4kibs4mi/snapify/apimodels"
 	"github.com/s4kibs4mi/snapify/ent"
 	"net/http"
+	"time"
 )
 
 func (h *handlers) ScreenshotGet(ctx *fiber.Ctx) error {
@@ -39,5 +41,13 @@ func (h *handlers) ScreenshotGet(ctx *fiber.Ctx) error {
 
 	h.logger.Info("SignedUrl: ", signedUrl)
 
-	return ctx.Redirect(signedUrl, http.StatusTemporaryRedirect)
+	return h.Serve(ctx, http.StatusOK, map[string]interface{}{
+		"data": apimodels.RespScreenshot{
+			ID:            ss.ID.String(),
+			URL:           ss.URL,
+			Status:        string(ss.Status),
+			ScreenshotURL: &signedUrl,
+			CreatedAt:     ss.CreatedAt.Format(time.RFC3339),
+		},
+	})
 }
