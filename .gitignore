@@ -1,5 +1,4 @@
-.idea
-out
+.idea/
 go.sum
-snapify
 storage
+bin/

@@ -2,10 +2,14 @@ app:
   host: "0.0.0.0"
   port: 9010
   log_level: "debug"
-  chrome_headless_url: "http://172.28.1.2:9222"
+  redis_db: 0
+  redis_password: test
+  redis_addr: "localhost:6379"
+  redis_queue_name: "screenshot_queue"
+  chrome_headless_url: "http://localhost:7317"
 
 database:
-  host: "database"
+  host: "localhost"
   port: 5432
   username: "root"
   password: "test"
@@ -28,9 +32,10 @@ rabbitmq:
     count: 5
 
 minio:
-  base_url: "minio:9000"
+  base_url: "localhost:9000"
   key: "MINIO_ACCESS_KEY"
   secret: "MINIO_SECRET_KEY"
   bucket: "snapify"
   location: "us"
   sign_duration: 5  # Minute
+  is_secure: false
