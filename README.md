@@ -51,6 +51,10 @@ Visit: http://localhost:9010/docs
 - Logrus
 - Rod
 
+### Support
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/sakib.ninja)
+
 ### License
 
 [MIT](./LICENSE)
