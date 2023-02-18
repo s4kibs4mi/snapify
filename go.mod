@@ -4,13 +4,11 @@ go 1.18
 
 require (
 	entgo.io/ent v0.11.8
-	github.com/aws/aws-sdk-go v1.44.204
 	github.com/go-rod/rod v0.112.5
 	github.com/gofiber/fiber/v2 v2.42.0
 	github.com/google/uuid v1.3.0
 	github.com/hibiken/asynq v0.24.0
 	github.com/jackc/pgx/v4 v4.18.0
-	github.com/jinzhu/gorm v1.9.16
 	github.com/mattn/go-sqlite3 v1.14.16
 	github.com/minio/minio-go v6.0.14+incompatible
 	github.com/sirupsen/logrus v1.9.0
@@ -41,10 +39,7 @@ require (
 	github.com/jackc/pgproto3/v2 v2.3.2 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
 	github.com/jackc/pgtype v1.14.0 // indirect
-	github.com/jinzhu/inflection v1.0.0 // indirect
-	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/klauspost/compress v1.15.9 // indirect
-	github.com/lib/pq v1.10.7 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.17 // indirect

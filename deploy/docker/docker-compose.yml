@@ -1,26 +1,40 @@
 version: '3.1'
 
 services:
-  #  snapify:
-  #    image: s4kibs4mi/snapify:1.0.7
-  #    command: [ "serve", "--config_path", "/root/", "--config_name", "config" ]
-  #    restart: on-failure
-  #    ports:
-  #      - 9010:9010
-  #    volumes:
-  #      - "./config.yml:/root/config.yml"
-  #    depends_on:
-  #      - database
-  #      - rabbitmq
-  #      - minio
-  #      - chrome-headless
-  #    links:
-  #      - chrome-headless
-  #    networks:
-  #      snapify_net:
-  #        ipv4_address: 172.28.1.1
+  snapify-app:
+    build:
+      context: ../../
+      dockerfile: Dockerfile
+    entrypoint: [ "snapify-app" ]
+    restart: on-failure
+    environment:
+      CONFIG_FILE: "/root/config/config.yml"
+    ports:
+      - "9010:9010"
+    volumes:
+      - "./../../config.docker.yml:/root/config/config.yml"
+    depends_on:
+      - database
+      - minio
+      - redis
 
-  rod-headless-browser:
+  snapify-worker:
+    build:
+      context: ../../
+      dockerfile: Dockerfile
+    entrypoint: [ "snapify-worker" ]
+    restart: on-failure
+    environment:
+      CONFIG_FILE: "/root/config/config.yml"
+    volumes:
+      - "./../../config.docker.yml:/root/config/config.yml"
+    depends_on:
+      - database
+      - minio
+      - browser
+      - redis
+
+  browser:
     image: ghcr.io/go-rod/rod:v0.112.5
     ports:
       - "7317:7317"
@@ -33,6 +47,8 @@ services:
       POSTGRES_DB: test
       POSTGRES_PASSWORD: test
       POSTGRES_USER: root
+    volumes:
+      - "./database:/var/lib/postgresql/data"
 
   minio:
     image: minio/minio
@@ -42,6 +58,8 @@ services:
       MINIO_ACCESS_KEY: "MINIO_ACCESS_KEY"
       MINIO_SECRET_KEY: "MINIO_SECRET_KEY"
     command: [ "server", "/data" ]
+    volumes:
+      - "./blobStorage:/data"
 
   redis:
     image: redis:7.0.7

@@ -1,4 +1,4 @@
-.PHONY: build run_app run_worker
+.PHONY: build run_app run_worker build_image
 
 export GO111MODULE=on
 export CGO_ENABLED=0
@@ -13,3 +13,6 @@ run_app:
 
 run_worker:
 	./bin/worker
+
+build_image:
+	docker build -t s4kibs4mi/snapify:latest .

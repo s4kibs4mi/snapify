@@ -1,7 +1,4 @@
-FROM golang:1.8-alpine AS builder
-
-RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
-RUN apk add git openssh
+FROM --platform=linux/amd64 golang:1.18-alpine AS builder
 
 ENV GOPATH=/go
 
@@ -19,8 +16,8 @@ RUN go build -v -o snapify-worker ./cmd/worker
 RUN mv snapify-app /go/bin/snapify-app
 RUN mv snapify-worker /go/bin/snapify-worker
 
-FROM alpine
-RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
+FROM --platform=linux/amd64 alpine
+
 WORKDIR /root
 
 COPY --from=builder /go/bin/snapify-app /usr/local/bin/snapify-app
