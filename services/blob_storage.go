@@ -14,6 +14,7 @@ import (
 type IBlobStorageService interface {
 	Init() error
 	Save(localFilePath string) (string, error)
+	Fetch(storedPath string) (*minio.Object, error)
 	FetchUrl(storedPath string) (string, error)
 	Delete(storedPath string) error
 }
@@ -86,8 +87,15 @@ func (s *minioService) FetchUrl(storedPath string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-
 	return signedUrl.String(), nil
+}
+
+func (s *minioService) Fetch(storedPath string) (*minio.Object, error) {
+	object, err := s.client.GetObject(s.bucketName, storedPath, minio.GetObjectOptions{})
+	if err != nil {
+		return nil, err
+	}
+	return object, nil
 }
 
 func (s *minioService) Delete(storedPath string) error {

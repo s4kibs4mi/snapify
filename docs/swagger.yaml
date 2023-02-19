@@ -157,4 +157,26 @@ paths:
       summary: Retrieve screenshot info
       tags:
       - screenshots
+  /v1/screenshots/{screenshot_id}/view:
+    get:
+      description: Serves screenshot as PNG
+      parameters:
+      - description: Authentication header
+        in: query
+        name: Token
+        required: true
+        type: string
+      - description: Screenshot UUID
+        in: path
+        name: screenshot_id
+        required: true
+        type: string
+      produces:
+      - image/png
+      responses:
+        "200":
+          description: OK
+      summary: Serves screenshot as PNG
+      tags:
+      - screenshots
 swagger: "2.0"

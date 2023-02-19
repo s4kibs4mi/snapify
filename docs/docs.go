@@ -207,6 +207,39 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/v1/screenshots/{screenshot_id}/view": {
+            "get": {
+                "description": "Serves screenshot as PNG",
+                "produces": [
+                    "image/png"
+                ],
+                "tags": [
+                    "screenshots"
+                ],
+                "summary": "Serves screenshot as PNG",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authentication header",
+                        "name": "Token",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Screenshot UUID",
+                        "name": "screenshot_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
         }
     },
     "definitions": {

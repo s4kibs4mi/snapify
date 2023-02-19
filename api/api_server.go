@@ -36,6 +36,7 @@ func (s *Server) Start(handlers IHandlers) error {
 	v1.Use(handlers.AuthMiddleware())
 	v1.Post("/screenshots/", handlers.ScreenshotCreate)
 	v1.Get("/screenshots/:id/", handlers.ScreenshotGet)
+	v1.Get("/screenshots/:id/view/", handlers.ScreenshotView)
 	v1.Delete("/screenshots/:id/", handlers.ScreenshotDelete)
 	v1.Get("/screenshots/", handlers.ScreenshotList)
 

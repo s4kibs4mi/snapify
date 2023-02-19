@@ -37,6 +37,8 @@ created_at datetime index
 
 ### Docs
 
+![](./extras/docs.png)
+
 After running docker compose,
 
 Visit: http://localhost:9010/docs
